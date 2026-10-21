@@ -114,7 +114,8 @@ data class UseCase(val id: String, val title: String, val created: Long, val mar
 private enum class Screen { HOME, EDIT, DETAIL }
 
 class WorkspaceStore(context: Context) {
-    private val prefs = context.getSharedPreferences("time_recorder_data", Context.MODE_PRIVATE)
+    private val appContext = context.applicationContext
+    private val prefs = appContext.getSharedPreferences("time_recorder_data", Context.MODE_PRIVATE)
 
     fun readCases(): List<UseCase> = runCatching {
         val array = JSONArray(prefs.getString("cases", "[]"))
@@ -130,6 +131,7 @@ class WorkspaceStore(context: Context) {
             array.put(JSONObject().put("id", item.id).put("title", item.title).put("created", item.created).put("marks", item.marks.toJson()))
         }
         prefs.edit().putString("cases", array.toString()).apply()
+        TimeRecorderWidgetProvider.refresh(appContext)
     }
 
     fun readDraft(): UseCase? = runCatching {
@@ -140,6 +142,7 @@ class WorkspaceStore(context: Context) {
     fun writeDraft(draft: UseCase?) {
         if (draft == null) prefs.edit().remove("draft").apply()
         else prefs.edit().putString("draft", JSONObject().put("id", draft.id).put("title", draft.title).put("created", draft.created).put("marks", draft.marks.toJson()).toString()).apply()
+        TimeRecorderWidgetProvider.refresh(appContext)
     }
 
     fun readTypes(): List<NoteType> = runCatching {
@@ -156,6 +159,8 @@ class WorkspaceStore(context: Context) {
         prefs.edit().putString("types", array.toString()).apply()
     }
 }
+
+fun defaultNoteTypes(): List<NoteType> = DefaultTypes
 
 private fun List<Mark>.toJson(): JSONArray = JSONArray().also { array ->
     forEach { array.put(JSONObject().put("id", it.id).put("at", it.at).put("note", it.note)) }
@@ -200,6 +205,7 @@ fun TimeRecorderWorkspace() {
         persistDraft()
         persistCases()
         store.writeTypes(noteTypes.toList())
+        TimeRecorderWidgetProvider.refresh(context)
     }
     LaunchedEffect(exportMessage) {
         exportMessage?.let { snackbarHostState.showSnackbar(it); exportMessage = null }

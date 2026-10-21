@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F7F8FA"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/widget_case_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="时间记录"
+            android:textColor="#1A1C1E"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/widget_entries"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="4"
+            android:text="暂无时间点"
+            android:textColor="#626970"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/widget_new_case"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:backgroundTint="#356859"
+            android:text="＋ 新建并保存"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="116dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:orientation="vertical"
+        android:weightSum="4">
+
+        <Button android:id="@+id/widget_note_flight" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginBottom="3dp" android:layout_weight="1" android:backgroundTint="#E3F2FD" android:text="飞行" android:textAllCaps="false" android:textColor="#1565C0" android:textSize="12sp" />
+        <Button android:id="@+id/widget_note_start" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginBottom="3dp" android:layout_weight="1" android:backgroundTint="#E8F5E9" android:text="开始" android:textAllCaps="false" android:textColor="#2E7D32" android:textSize="12sp" />
+        <Button android:id="@+id/widget_note_end" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginBottom="3dp" android:layout_weight="1" android:backgroundTint="#FFF3E0" android:text="结束" android:textAllCaps="false" android:textColor="#EF6C00" android:textSize="12sp" />
+        <Button android:id="@+id/widget_note_issue" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:backgroundTint="#FCE4EC" android:text="问题" android:textAllCaps="false" android:textColor="#C2185B" android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>
